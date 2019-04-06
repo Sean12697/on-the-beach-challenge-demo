@@ -3,7 +3,7 @@ const mongooseHandler = require('../../mongooseHandler');
 const mongooseConnection = new mongooseHandler();
 const router = express.Router();
 
-router.get('test', (req, res, next => {
+router.get('/test', (req, res, next) => {
     mongooseConnection.insertTestTasks();
 }));
 
