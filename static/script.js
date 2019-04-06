@@ -1,9 +1,12 @@
-let url = window.location.href,
-    user = getCookie('username');
+let url = window.location.origin,
+    session = getCookie('session');
 
 window.addEventListener('load', () => {
-    setNavTime();
-    setInterval(setNavTime, 1000 * 60);
+    if (session == null) { // Login
+        
+    } else { // Show Tasks
+      
+}
 });
 
 function getCookie(cookieName) {
@@ -24,4 +27,19 @@ function getCookie(cookieName) {
 
 function setCookie(cookieName, cookieValue) {
     document.cookie = `${cookieName}=${cookieValue}`;
+}
+
+function POST(url, json, func) {
+    $.ajax({
+        contentType: 'application/json',
+        data: JSON.stringify(json),
+        dataType: 'json',
+        success: func,
+        error: function(){
+            app.log(`Error in ${url} call, with data of ${JSON.stringify(json)}`);
+        },
+        processData: false,
+        type: 'POST',
+        url: url
+    });
 }

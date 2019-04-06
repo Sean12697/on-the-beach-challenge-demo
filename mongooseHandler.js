@@ -40,18 +40,21 @@ class mongooseHandler {
         }, err => console.log(err));
     }
 
-    insertNewUser(name, email) {
-        let session = generateUniqueSessionKey();
-        (new User({
-            session_key: session,
-            flight_id: null,
-            name: name,
-            email: email,
-            points: 0,
-            tasks_ongoing_ids: [],
-            tasks_complete_ids: []
-        })).save();
-        return session;
+    async insertNewUser(name, email) {
+        return new Promise(resolve => {
+            let session = generateUniqueSessionKey();
+            (new User({
+                session_key: session,
+                flight_id: null,
+                name: name,
+                email: email,
+                points: 0,
+                tasks_ongoing_ids: [],
+                tasks_complete_ids: []
+            })).save(() => {
+                resolve(session)
+            });
+        });
     }
 
     async getUser(session) {
@@ -64,22 +67,26 @@ class mongooseHandler {
         })
     }
 
-    completeTask(session, task_id) {
-        userModel.find({
-            session_key: session
-        }, (err, user) => {
-            taskModel.find({ _id: task_id }, (error, task) => {
-                let updated_user = user;
-                updated_user.tasks_complete_ids.push(task[0]._id);
-                updated_user.points += task[0].points_worth;
-                // Updating User
-                userModel.findOneAndUpdate({
-                    session_key: session
-                }, updated_user, {
-                    upsert: true,
-                    useFindAndModify: false
-                }, (err, doc) => {});
-            })
+    async completeTask(session, task_id) {
+        return new Promise(resolve => {
+            userModel.find({
+                session_key: session
+            }, (err, user) => {
+                taskModel.find({ _id: task_id }, (error, task) => {
+                    let updated_user = user;
+                    updated_user.tasks_complete_ids.push(task[0]._id);
+                    updated_user.points += task[0].points_worth;
+                    // Updating User
+                    userModel.findOneAndUpdate({
+                        session_key: session
+                    }, updated_user, {
+                        upsert: true,
+                        useFindAndModify: false
+                    }, (err, doc) => {
+                        resolve("Inserted");
+                    });
+                })
+            });
         });
     }
 

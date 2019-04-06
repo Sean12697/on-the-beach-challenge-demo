@@ -3,7 +3,7 @@ const app = express();
 const morgan = require('morgan'); // dev
 const bodyParser = require('body-parser');
 
-const taskRouters = require("./api/routes/tasks");
+const functionsRouters = require("./api/routes/functions");
 
 // Makes life easier
 app.use(morgan('dev')); // For console logging calls
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 });
 
 // Route handlers
-app.use("/task", taskRouters);
+app.use("/functions", functionsRouters);
 
 // Further Error Handling
 app.use((req, res, next) => {
