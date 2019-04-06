@@ -40,10 +40,28 @@ class mongooseHandler {
         }, err => console.log(err));
     }
 
+    insertTestTasks() {
+
+        (new taskModel({
+            title: "",
+            description: "",
+            points_worth: 0,
+            single_person: true,
+            sponsor: "",
+            image: "",
+            category: "One-off",
+            cta_before: "Upload Image",
+            cta_after: "",
+            rewards: []
+        })).save();
+
+
+    }
+
     async insertNewUser(name, email) {
         return new Promise(resolve => {
             let session = generateUniqueSessionKey();
-            (new User({
+            (new userModel({
                 session_key: session,
                 flight_id: null,
                 name: name,

@@ -1,13 +1,33 @@
 let url = window.location.origin,
-    session = getCookie('session');
+    session = getCookie('session'),
+    main;
 
 window.addEventListener('load', () => {
+    main = document.getElementById("main");
     if (session == null) { // Login
-        
+        signupScreen();
     } else { // Show Tasks
-      
-}
+        showTasks();
+    }
 });
+
+function signupScreen() {
+    main.innerHTML = "<div id='form'><input type='text' value='name' id='name'/><input type='text' value='email'id='email'/><input type='button' onclick='signedup()'/></div>";
+}
+
+function signedup() {
+    let name = document.getElementById("name").value,
+        email = document.getElementById("email").value;
+    POST('functions/newUser', {name: name, email: email}, (data) => {
+        console.log(data);
+        setCookie(session, JSON.parse(data).session);
+        showTasks();
+    })
+}
+
+function showTasks() {
+    main.innerHTML = "";
+}
 
 function getCookie(cookieName) {
     var name = cookieName + "=";

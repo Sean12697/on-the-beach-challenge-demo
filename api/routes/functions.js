@@ -9,7 +9,7 @@ router.post('/newUser', (req, res, next) => {
             session
         });    
     });
-})
+});
 
 router.post('/getUser', (req, res, next) => {
     mongooseConnection.completeTask(req.body.session, req.body.id).then(result => {
@@ -20,7 +20,7 @@ router.post('/getUser', (req, res, next) => {
 });
 
 router.post('/getTask', (req, res, next) => {
-    mongooseConnection.getTask(id).then(task => {
+    mongooseConnection.getTask(req.body. id).then(task => {
         res.status(200).json({
             task
         });    
