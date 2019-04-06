@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
 });
 
 function signupScreen() {
-    main.innerHTML = "<div id='form'><input type='text' value='name' id='name'/><input type='text' value='email'id='email'/><input type='button' onclick='signedup()'/></div>";
+    main.innerHTML = "<div id='form'><input type='text' value='name' id='name'/><input type='text' value='email'id='email'/><input type='button' value='Signup' onclick='signedup()'/></div>";
 }
 
 function signedup() {
@@ -56,7 +56,7 @@ function POST(url, json, func) {
         dataType: 'json',
         success: func,
         error: function(){
-            app.log(`Error in ${url} call, with data of ${JSON.stringify(json)}`);
+            console.log(`Error in ${url} call, with data of ${JSON.stringify(json)}`);
         },
         processData: false,
         type: 'POST',
