@@ -1,3 +1,3 @@
 module.exports = {
-    MONGO_ATLAS_PW: "9nJdrWNBbrt0eIkL"    
+    MONGO_ATLAS_PW: "aaaaaaaaaaaaaaaaaaaaa"    
 }

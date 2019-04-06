@@ -3,47 +3,51 @@ const mongooseHandler = require('../../mongooseHandler');
 const mongooseConnection = new mongooseHandler();
 const router = express.Router();
 
-router.post('/newUser', (req, res, next) => {
-    mongooseConnection.insertNewUser(req.body.name, req.body.email).then(session => {
+router.get('test', (req, res, next => {
+    mongooseConnection.insertTestTasks();
+}));
+
+router.get('/newUser', (req, res, next) => {
+    mongooseConnection.insertNewUser(req.params.name, req.params.email).then(session => {
         res.status(200).json({
             session
         });    
     });
 });
 
-router.post('/getUser', (req, res, next) => {
-    mongooseConnection.completeTask(req.body.session, req.body.id).then(result => {
+router.get('/getUser', (req, res, next) => {
+    mongooseConnection.completeTask(req.params.session, req.params.id).then(result => {
         res.status(200).json({
             result
         });    
     });
 });
 
-router.post('/getTask', (req, res, next) => {
-    mongooseConnection.getTask(req.body. id).then(task => {
+router.get('/getTask', (req, res, next) => {
+    mongooseConnection.getTask(req.params. id).then(task => {
         res.status(200).json({
             task
         });    
     });
 });
 
-router.post('/getCompleteTasks', (req, res, next) => {
-    mongooseConnection.getCompleteTasks(req.body.session).then(tasks => {
+router.get('/getCompleteTasks', (req, res, next) => {
+    mongooseConnection.getCompleteTasks(req.params.session).then(tasks => {
         res.status(200).json({
             tasks
         });    
     });
 });
 
-router.post('/getOngoingTasks', (req, res, next) => {
-    mongooseConnection.getCompleteTasks(req.body.session).then(tasks => {
+router.get('/getOngoingTasks', (req, res, next) => {
+    mongooseConnection.getCompleteTasks(req.params.session).then(tasks => {
         res.status(200).json({
             tasks
         });    
     });
 });
 
-// router.post('/', (req, res, next) => {
+// router.get('/', (req, res, next) => {
 //     mongooseConnection.func();
 //     res.status(200).json({
 //         test

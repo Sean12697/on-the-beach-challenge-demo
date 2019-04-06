@@ -32,10 +32,12 @@ const User = new Schema({
 const userModel = mongoose.model('User', User, 'users');
 const taskModel = mongoose.model('Task', Task, 'tasks');
 const prizesModel = mongoose.model('Prizes', Prizes, 'prizes');
+const uri = `mongodb+srv://admin:${ process.env.MONGO_ATLAS_PW || require('./keys').MONGO_ATLAS_PW }@cluster0-e2krm.mongodb.net/test?retryWrites=true`;
 
 class mongooseHandler {
     constructor() {
-        mongoose.connect(`mongodb+srv://admin:${process.env.MONGO_ATLAS_PW || require('./keys').MONGO_ATLAS_PW }@cluster0-e2krm.mongodb.net/test?retryWrites=true`, {
+        console.log(uri)
+        mongoose.connect(uri, {
             useNewUrlParser: true
         }, err => console.log(err));
     }
@@ -43,7 +45,7 @@ class mongooseHandler {
     insertTestTasks() {
 
         (new taskModel({
-            title: "",
+            title: "TEST",
             description: "",
             points_worth: 0,
             single_person: true,

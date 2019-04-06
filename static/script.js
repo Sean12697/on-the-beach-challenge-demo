@@ -18,7 +18,7 @@ function signupScreen() {
 function signedup() {
     let name = document.getElementById("name").value,
         email = document.getElementById("email").value;
-    POST('functions/newUser', {name: name, email: email}, (data) => {
+    GET('functions/newUser', {name: name, email: email}, (data) => {
         console.log(data);
         setCookie(session, JSON.parse(data).session);
         showTasks();
@@ -49,17 +49,17 @@ function setCookie(cookieName, cookieValue) {
     document.cookie = `${cookieName}=${cookieValue}`;
 }
 
-function POST(url, json, func) {
+function GET(url, json, func) {
     $.ajax({
         contentType: 'application/json',
-        data: JSON.stringify(json),
+        data: json,
         dataType: 'json',
         success: func,
-        error: function(){
-            console.log(`Error in ${url} call, with data of ${JSON.stringify(json)}`);
+        error: function(error){
+            console.log(error);
         },
         processData: false,
-        type: 'POST',
+        type: 'GET',
         url: url
     });
 }
