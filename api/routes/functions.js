@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/test', (req, res, next) => {
     mongooseConnection.insertTestTasks();
-}));
+});
 
 router.get('/newUser', (req, res, next) => {
     mongooseConnection.insertNewUser(req.params.name, req.params.email).then(session => {
